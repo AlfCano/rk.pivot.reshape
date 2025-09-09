@@ -34,7 +34,7 @@ function calculate(is_preview){
     var options = new Array();
     options.push("data = " + data_frame);
     
-    // CORRECTED PARSING: Split the string by any whitespace and filter out empty strings.
+    // Correctly parse the space-separated string from the multi-select varslot
     var cols_array = cols_full_string.split(/\s+/).filter(function(n){ return n != "" });
     var col_names = cols_array.map(function(item) { return getColumnName(item); });
     options.push("cols = c(\"" + col_names.join("\", \"") + "\")");

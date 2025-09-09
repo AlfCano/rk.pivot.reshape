@@ -8,7 +8,7 @@ if(basename(getwd()) == "rk.pivot.reshape") {
   stop("Your current working directory is already 'rk.pivot.reshape'. Please navigate to the parent directory ('..') before running this script to avoid creating a nested folder structure.")
 }
 
-# Require "rkwarddev"
+# Require "rkward.replaces"
 require(rkwarddev)
 rkwarddev.required("0.08-1")
 
@@ -28,9 +28,9 @@ package_about <- rk.XML.about(
     ),
     about = list(
       desc = "An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package.",
-      version = "0.01-6", # Final version
+      version = "0.01-6",
       date = format(Sys.Date(), "%Y-%m-%d"),
-      url = "http://example.com/rk.pivot.reshape",
+      url = "https://github.com/AlfCano/rk.pivot.reshape",
       license = "GPL",
       dependencies = "R (>= 3.00)"
     )
@@ -75,6 +75,7 @@ longer_help <- rk.rkh.doc(
 
 
 # --- JavaScript Logic for pivot_longer ---
+# REVERTING to the proven, robust method of writing JS in a string with getValue() and manual parsing.
 js_longer_calculate <- '
     // Load GUI values
     var data_frame = getValue("data_slot");
@@ -96,7 +97,7 @@ js_longer_calculate <- '
     var options = new Array();
     options.push("data = " + data_frame);
 
-    // CORRECTED PARSING: Split the string by any whitespace and filter out empty strings.
+    // Correctly parse the space-separated string from the multi-select varslot
     var cols_array = cols_full_string.split(/\\s+/).filter(function(n){ return n != "" });
     var col_names = cols_array.map(function(item) { return getColumnName(item); });
     options.push("cols = c(\\"" + col_names.join("\\", \\"") + "\\")");

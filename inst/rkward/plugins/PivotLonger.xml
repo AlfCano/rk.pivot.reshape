@@ -1,0 +1,40 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="PivotLonger.js" />
+	<help file="PivotLonger.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Pivot Data from Wide to Long">
+		<row id="row_vDDC2NNHCM">
+			<varselector id="longer_df_source" label="Data frames" />
+			<column id="clm_vDC2NNHCMM">
+				<varslot id="data_slot" label="Data (data.frame)" source="longer_df_source" classes="data.frame" required="true" />
+				<varslot id="cols_slot" label="Columns to pivot (cols)" source="longer_df_source" required="true" multi="true" min_vars="2" />
+				<input label="Name for new key column (names_to)" id="names_to" initial="name" />
+				<input label="Name for new value column (values_to)" id="values_to" initial="value" />
+				<dropdown id="names_repair" label="Handle duplicate column names (names_repair)">
+					<option label="Check for unique names (default)" value="check_unique" checked="true" />
+					<option label="Minimal" value="minimal" />
+					<option label="Make unique" value="unique" />
+					<option label="Make universal" value="universal" />
+				</dropdown>
+				<checkbox id="drop_na" label="Drop rows with NA values (values_drop_na)" value="1" />
+				<saveobject label="Save longer data to" checkable="true" checked="true" initial="data.long" id="save_long" />
+			</column>
+		</row>
+	</dialog>
+</document>

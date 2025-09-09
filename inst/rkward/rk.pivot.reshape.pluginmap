@@ -1,0 +1,107 @@
+<!DOCTYPE
+	rkpluginmap
+>
+<document
+	base_prefix=""
+	namespace="PivotLonger"
+	id="PivotLonger_rkward"
+	po_id="PivotLonger_rkward"
+	priority="medium"
+>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<about
+		name="rk.pivot.reshape"
+		shortinfo="An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package."
+		longinfo="An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package."
+		version="0.01-6"
+		releasedate="2025-09-09"
+		url="http://example.com/rk.pivot.reshape"
+		license="GPL"
+	>
+		<author
+			given="Alfonso"
+			family="Cano Robles"
+			email="alfonso.cano@correo.buap.mx"
+			role="aut, cre"
+		/>
+	</about>
+	<require
+		map="rkward::menu"
+	/>
+	<require
+		map="rkward::embedded"
+	/>
+	<components>
+		<component
+			id="cmp_PivotLongerPivotWider"
+			label="PivotWider"
+			type="standard"
+			file="plugins/PivotWider.xml"
+		>
+		</component>
+		<component
+			id="cmp_PivotLongerPivotLonger"
+			label="Pivot Longer"
+			type="standard"
+			file="plugins/PivotLonger.xml"
+		>
+		</component>
+	</components>
+	<hierarchy>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="Pivotreshape"
+				label="Pivot reshape"
+			>
+				<menu
+					id="PivotWider"
+					label="Pivot Wider"
+				>
+					<entry
+						component="cmp_PivotLongerPivotWider"
+					/>
+				</menu>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="Pivotreshape"
+				label="Pivot reshape"
+			>
+				<menu
+					id="PivotLonger"
+					label="Pivot Longer"
+				>
+					<entry
+						component="cmp_PivotLongerPivotLonger"
+					/>
+				</menu>
+			</menu>
+		</menu>
+	</hierarchy>
+	<!--
+		<context
+			id="x11"
+		>
+		</context>
+	-->
+	<!--
+		<context
+			id="import"
+		>
+		</context>
+	-->
+</document>

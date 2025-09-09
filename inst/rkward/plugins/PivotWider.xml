@@ -1,0 +1,39 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="PivotWider.js" />
+	<help file="PivotWider.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Pivot Data from Long to Wide">
+		<row id="row_vDDIDCCHCM">
+			<varselector id="wider_df_source" label="Data frames" />
+			<column id="clm_vDIDCCHCMM">
+				<varslot id="data_slot_wide" label="Data (data.frame)" source="wider_df_source" classes="data.frame" required="true" />
+				<varslot id="id_cols_slot" label="ID columns (id_cols, optional)" source="wider_df_source" multi="true" />
+				<varslot id="names_from_slot" label="Column for new column names (names_from)" source="wider_df_source" required="true" />
+				<varslot id="values_from_slot" label="Column for cell values (values_from)" source="wider_df_source" required="true" />
+				<dropdown id="names_repair_wide" label="Handle duplicate column names (names_repair)">
+					<option label="Check for unique names (default)" value="check_unique" checked="true" />
+					<option label="Minimal" value="minimal" />
+					<option label="Make unique" value="unique" />
+					<option label="Make universal" value="universal" />
+				</dropdown>
+				<saveobject label="Save wider data to" checkable="true" checked="true" initial="data.wide" id="save_wide" />
+			</column>
+		</row>
+	</dialog>
+</document>

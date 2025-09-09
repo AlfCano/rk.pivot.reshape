@@ -1,0 +1,17 @@
+Package: rk.pivot.reshape
+Type: Package
+Title: An RKWard plugin to reshape data by pivoting it longer or wider
+        using functions from the 'tidyr' package.
+Version: 0.01-6
+Date: 2025-09-09
+Author: Alfonso Cano Robles
+Maintainer: Alfonso Cano Robles <alfonso.cano@correo.buap.mx>
+Enhances: rkward
+Description: An RKWard plugin to reshape data by pivoting it longer or
+        wider using functions from the 'tidyr' package.
+License: GPL
+Encoding: UTF-8
+LazyLoad: yes
+URL: http://example.com/rk.pivot.reshape
+Authors@R: person(given="Alfonso", family="Cano Robles",
+        email="alfonso.cano@correo.buap.mx", role=c("aut", "cre"))

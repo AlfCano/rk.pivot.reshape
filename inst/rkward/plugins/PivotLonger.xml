@@ -34,6 +34,7 @@
 				</dropdown>
 				<checkbox id="drop_na" label="Drop rows with NA values (values_drop_na)" value="1" />
 				<saveobject label="Save longer data to" checkable="true" checked="true" initial="data.long" id="save_long" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>
 		</row>
 	</dialog>

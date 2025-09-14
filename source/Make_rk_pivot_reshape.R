@@ -28,7 +28,7 @@ package_about <- rk.XML.about(
     ),
     about = list(
       desc = "An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package.",
-      version = "0.01-6",
+      version = "0.01-7", # Version bumped for new feature
       date = format(Sys.Date(), "%Y-%m-%d"),
       url = "https://github.com/AlfCano/rk.pivot.reshape",
       license = "GPL",
@@ -51,6 +51,7 @@ longer_names_repair_dropdown <- rk.XML.dropdown(label = "Handle duplicate column
 ))
 longer_values_drop_na_cbox <- rk.XML.cbox(label = "Drop rows with NA values (values_drop_na)", value="1", id.name = "drop_na")
 longer_save_object <- rk.XML.saveobj(label = "Save longer data to", chk=TRUE, initial = "data.long", id.name = "save_long")
+longer_preview_button <- rk.XML.preview(mode = "data") # NEW
 
 longer_dialog <- rk.XML.dialog(
     label = "Pivot Data from Wide to Long",
@@ -58,7 +59,8 @@ longer_dialog <- rk.XML.dialog(
         longer_df_selector,
         rk.XML.col(
             longer_data_slot, longer_cols_slot, longer_names_to_input, longer_values_to_input,
-            longer_names_repair_dropdown, longer_values_drop_na_cbox, longer_save_object
+            longer_names_repair_dropdown, longer_values_drop_na_cbox, longer_save_object,
+            longer_preview_button # ADDED to layout
         )
     )
 )
@@ -75,7 +77,6 @@ longer_help <- rk.rkh.doc(
 
 
 # --- JavaScript Logic for pivot_longer ---
-# REVERTING to the proven, robust method of writing JS in a string with getValue() and manual parsing.
 js_longer_calculate <- '
     // Load GUI values
     var data_frame = getValue("data_slot");
@@ -85,7 +86,6 @@ js_longer_calculate <- '
     var names_repair = getValue("names_repair");
     var drop_na = getValue("drop_na");
 
-    // Robust helper function to extract pure column names
     function getColumnName(fullName) {
         if (!fullName) return "";
         if (fullName.indexOf("[[") > -1) { return fullName.match(/\\[\\[\\\"(.*?)\\\"\\]\\]/)[1]; }
@@ -93,31 +93,59 @@ js_longer_calculate <- '
         else { return fullName; }
     }
 
-    // Start building R command
     var options = new Array();
     options.push("data = " + data_frame);
-
-    // Correctly parse the space-separated string from the multi-select varslot
     var cols_array = cols_full_string.split(/\\s+/).filter(function(n){ return n != "" });
     var col_names = cols_array.map(function(item) { return getColumnName(item); });
     options.push("cols = c(\\"" + col_names.join("\\", \\"") + "\\")");
-
     options.push("names_to = \\"" + names_to + "\\"");
     options.push("values_to = \\"" + values_to + "\\"");
-
     if(names_repair != "check_unique"){
         options.push("names_repair = \\"" + names_repair + "\\"");
     }
-    // Golden Rule 6: Robust checkbox handling
-    if(drop_na == "1" || drop_na == 1 || drop_na == true){
+    if(drop_na == "1"){
         options.push("values_drop_na = TRUE");
     }
-
     echo("data.long <- tidyr::pivot_longer(" + options.join(", ") + ")\\n");
 '
 
+# NEW: JavaScript for pivot_longer preview
+js_longer_preview <- '
+    // Load GUI values
+    var data_frame = getValue("data_slot");
+    var cols_full_string = getValue("cols_slot");
+    var names_to = getValue("names_to");
+    var values_to = getValue("values_to");
+    var names_repair = getValue("names_repair");
+    var drop_na = getValue("drop_na");
+
+    function getColumnName(fullName) {
+        if (!fullName) return "";
+        if (fullName.indexOf("[[") > -1) { return fullName.match(/\\[\\[\\\"(.*?)\\\"\\]\\]/)[1]; }
+        else if (fullName.indexOf("$") > -1) { return fullName.substring(fullName.lastIndexOf("$") + 1); }
+        else { return fullName; }
+    }
+
+    var options = new Array();
+    options.push("data = " + data_frame);
+    var cols_array = cols_full_string.split(/\\s+/).filter(function(n){ return n != "" });
+    var col_names = cols_array.map(function(item) { return getColumnName(item); });
+    options.push("cols = c(\\"" + col_names.join("\\", \\"") + "\\")");
+    options.push("names_to = \\"" + names_to + "\\"");
+    options.push("values_to = \\"" + values_to + "\\"");
+    if(names_repair != "check_unique"){
+        options.push("names_repair = \\"" + names_repair + "\\"");
+    }
+    if(drop_na == "1"){
+        options.push("values_drop_na = TRUE");
+    }
+    echo("preview_data <- tidyr::pivot_longer(" + options.join(", ") + ")\\n");
+'
+
 js_longer_printout <- '
-    echo("rk.header(\\"Pivot Longer results saved to object.\\")\\n");
+    if(getValue("save_long") == "1"){
+        echo("rk.header(\\"Pivot Longer results saved to object: " + getValue("save_long.objectname") + "\\")\\n");
+    }
 '
 
 # =========================================================================================
@@ -134,6 +162,7 @@ wider_names_repair_dropdown <- rk.XML.dropdown(label = "Handle duplicate column 
     "Check for unique names (default)" = list(val="check_unique", chk=TRUE), "Minimal" = list(val="minimal"), "Make unique" = list(val="unique"), "Make universal" = list(val="universal")
 ))
 wider_save_object <- rk.XML.saveobj(label = "Save wider data to", chk=TRUE, initial = "data.wide", id.name = "save_wide")
+wider_preview_button <- rk.XML.preview(mode = "data") # NEW
 
 wider_dialog <- rk.XML.dialog(
     label = "Pivot Data from Long to Wide",
@@ -141,7 +170,8 @@ wider_dialog <- rk.XML.dialog(
         wider_df_selector,
         rk.XML.col(
             wider_data_slot, wider_id_cols_slot, wider_names_from_slot,
-            wider_values_from_slot, wider_names_repair_dropdown, wider_save_object
+            wider_values_from_slot, wider_names_repair_dropdown, wider_save_object,
+            wider_preview_button # ADDED to layout
         )
     )
 )
@@ -166,7 +196,6 @@ js_wider_calculate <- '
     var values_from_full = getValue("values_from_slot");
     var names_repair = getValue("names_repair_wide");
 
-    // Robust helper function from svydesign example
     function getColumnName(fullName) {
         if (!fullName) return "";
         if (fullName.indexOf("[[") > -1) { return fullName.match(/\\[\\[\\\"(.*?)\\\"\\]\\]/)[1]; }
@@ -174,35 +203,70 @@ js_wider_calculate <- '
         else { return fullName; }
     }
 
-    // Start building R command
     var options = new Array();
     options.push("data = " + data_frame);
-
     if(id_cols_full_string){
         var id_cols_array = id_cols_full_string.split(/\\s+/).filter(function(n){ return n != "" });
         var id_col_names = id_cols_array.map(function(item) { return getColumnName(item); });
         options.push("id_cols = c(\\"" + id_col_names.join("\\", \\"") + "\\")");
     }
-
     options.push("names_from = " + getColumnName(names_from_full));
     options.push("values_from = " + getColumnName(values_from_full));
-
     if(names_repair != "check_unique"){
         options.push("names_repair = \\"" + names_repair + "\\"");
     }
-
     echo("data.wide <- tidyr::pivot_wider(" + options.join(", ") + ")\\n");
 '
 
+# NEW: JavaScript for pivot_wider preview
+js_wider_preview <- '
+    // Load GUI values
+    var data_frame = getValue("data_slot_wide");
+    var id_cols_full_string = getValue("id_cols_slot");
+    var names_from_full = getValue("names_from_slot");
+    var values_from_full = getValue("values_from_slot");
+    var names_repair = getValue("names_repair_wide");
+
+    function getColumnName(fullName) {
+        if (!fullName) return "";
+        if (fullName.indexOf("[[") > -1) { return fullName.match(/\\[\\[\\\"(.*?)\\\"\\]\\]/)[1]; }
+        else if (fullName.indexOf("$") > -1) { return fullName.substring(fullName.lastIndexOf("$") + 1); }
+        else { return fullName; }
+    }
+
+    var options = new Array();
+    options.push("data = " + data_frame);
+    if(id_cols_full_string){
+        var id_cols_array = id_cols_full_string.split(/\\s+/).filter(function(n){ return n != "" });
+        var id_col_names = id_cols_array.map(function(item) { return getColumnName(item); });
+        options.push("id_cols = c(\\"" + id_col_names.join("\\", \\"") + "\\")");
+    }
+    options.push("names_from = " + getColumnName(names_from_full));
+    options.push("values_from = " + getColumnName(values_from_full));
+    if(names_repair != "check_unique"){
+        options.push("names_repair = \\"" + names_repair + "\\"");
+    }
+    echo("preview_data <- tidyr::pivot_wider(" + options.join(", ") + ")\\n");
+'
+
 js_wider_printout <- '
-    echo("rk.header(\\"Pivot Wider results saved to object.\\")\\n");
+    if(getValue("save_wide") == "1"){
+        echo("rk.header(\\"Pivot Wider results saved to object: " + getValue("save_wide.objectname") + "\\")\\n");
+    }
 '
 
 # Create the rk.plugin.component object for pivot_wider
 pivot_wider_component <- rk.plugin.component(
     "PivotWider",
     xml = list(dialog = wider_dialog),
-    js = list(require="tidyr", calculate=js_wider_calculate, printout=js_wider_printout, results.header=FALSE),
+    # UPDATED: js list now includes the preview script
+    js = list(
+        require="tidyr",
+        calculate=js_wider_calculate,
+        preview=js_wider_preview,
+        printout=js_wider_printout,
+        results.header=FALSE
+    ),
     rkh = list(help = wider_help),
     hierarchy = list("data", "Pivot reshape", "Pivot Wider"),
     provides = "logic"
@@ -216,7 +280,14 @@ plugin.dir <- rk.plugin.skeleton(
     path = ".",
     # Define the main component (pivot_longer) here
     xml = list(dialog = longer_dialog),
-    js = list(require="tidyr", calculate=js_longer_calculate, printout=js_longer_printout, results.header=FALSE),
+    # UPDATED: js list now includes the preview script
+    js = list(
+        require="tidyr",
+        calculate=js_longer_calculate,
+        preview=js_longer_preview,
+        printout=js_longer_printout,
+        results.header=FALSE
+    ),
     rkh = list(help = longer_help),
     provides = "logic",
     # Pass the list of ADDITIONAL components.
@@ -233,7 +304,7 @@ plugin.dir <- rk.plugin.skeleton(
 
 # Separation of concerns.
 message(
-  paste0('Plugin package \'', plugin_name, '\' created successfully in \'', plugin.dir, '\'!\n\n'),
+  paste0('Plugin package \'', plugin_name, '\' created successfully in \'', plugin.dir, '\'\n\n'),
   'NEXT STEPS:\n',
   '1. Open RKWard.\n',
   '2. In the R console, run:\n',

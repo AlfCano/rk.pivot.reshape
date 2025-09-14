@@ -33,6 +33,7 @@
 					<option label="Make universal" value="universal" />
 				</dropdown>
 				<saveobject label="Save wider data to" checkable="true" checked="true" initial="data.wide" id="save_wide" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>
 		</row>
 	</dialog>

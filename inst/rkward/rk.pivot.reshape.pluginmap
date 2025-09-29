@@ -20,8 +20,8 @@
 		name="rk.pivot.reshape"
 		shortinfo="An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package."
 		longinfo="An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package."
-		version="0.01-7"
-		releasedate="2025-09-13"
+		version="0.01.8"
+		releasedate="2025-09-29"
 		url="https://github.com/AlfCano/rk.pivot.reshape"
 		license="GPL"
 	>
@@ -41,7 +41,7 @@
 	<components>
 		<component
 			id="cmp_PivotLongerPivotWider"
-			label="PivotWider"
+			label="Pivot Wider"
 			type="standard"
 			file="plugins/PivotWider.xml"
 		>
@@ -63,14 +63,9 @@
 				id="Pivotreshape"
 				label="Pivot reshape"
 			>
-				<menu
-					id="PivotWider"
-					label="Pivot Wider"
-				>
-					<entry
-						component="cmp_PivotLongerPivotWider"
-					/>
-				</menu>
+				<entry
+					component="cmp_PivotLongerPivotWider"
+				/>
 			</menu>
 		</menu>
 		<menu
@@ -81,14 +76,9 @@
 				id="Pivotreshape"
 				label="Pivot reshape"
 			>
-				<menu
-					id="PivotLonger"
-					label="Pivot Longer"
-				>
-					<entry
-						component="cmp_PivotLongerPivotLonger"
-					/>
-				</menu>
+				<entry
+					component="cmp_PivotLongerPivotLonger"
+				/>
 			</menu>
 		</menu>
 	</hierarchy>

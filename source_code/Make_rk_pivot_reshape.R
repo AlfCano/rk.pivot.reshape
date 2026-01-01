@@ -28,7 +28,8 @@ package_about <- rk.XML.about(
     ),
     about = list(
       desc = "An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package.",
-      version = "0.01.8",
+      # UPDATED VERSION
+      version = "0.01.9",
       date = format(Sys.Date(), "%Y-%m-%d"),
       url = "https://github.com/AlfCano/rk.pivot.reshape",
       license = "GPL",
@@ -294,7 +295,9 @@ plugin.dir <- rk.plugin.skeleton(
     components = list(pivot_wider_component),
     pluginmap = list(
         name = "Pivot Longer",
-        hierarchy = list("data", "Pivot reshape") # Hierarchy of the main component
+        hierarchy = list("data", "Pivot reshape"), # Hierarchy of the main component
+        # ADDED PO_ID HERE
+        po_id = plugin_name
     ),
     create = c("pmap", "xml", "js", "desc", "rkh"),
     overwrite = TRUE,

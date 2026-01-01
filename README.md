@@ -1,3 +1,8 @@
+# RKWard Plugin: Pivot Reshape (`rk.pivot.reshape`)
+
+![Version](https://img.shields.io/badge/Version-0.01.9-blue.svg)
+![License](https://img.shields.io/badge/License-GPL--3-green.svg)
+[![R Linter](https://github.com/AlfCano/rk.pivot.reshape/actions/workflows/lintr.yml/badge.svg)](https://github.com/AlfCano/rk.pivot.reshape/actions/workflows/lintr.yml)
 
 > An RKWard plugin package to easily reshape data frames by pivoting them from wide to long (`pivot_longer`) or long to wide (`pivot_wider`), powered by the `tidyr` package.
 
@@ -24,6 +29,17 @@ This plugin package provides two powerful data reshaping tools within the RKWard
 -   Optionally select one or more ID columns (`id_cols`) to keep fixed, ensuring each row remains unique.
 -   Save the reshaped, wider data frame to a new R object.
 
+### Internationalization
+**Internationalization (i18n):** Fully localized interface available in multiple languages.
+
+#### Supported Languages
+As of version 0.01.9, this plugin is available in:
+*   🇺🇸 English (Default)
+*   🇪🇸 Spanish (`es`)
+*   🇫🇷 French (`fr`)
+*   🇩🇪 German (`de`)
+*   🇧🇷 Portuguese (Brazil) (`pt_BR`)
+
 ## Installation
 
 ### With `devtools` (Recommended)
@@ -33,21 +49,23 @@ You can install this plugin directly from its repository using the `devtools` pa
 # If you don't have devtools installed:
 # install.packages("devtools")
 local({
-## Preparar
+## Prepare
 require(devtools)
-## Computar
+## Compute
   install_github(
-    repo="AlfCano/rk.pivot.reshape"
+    repo="AlfCano/rk.pivot.reshape",
+    force = TRUE
   )
-## Imprimir el resultado
-rk.header ("Resultados de Instalar desde git")
+## Print result
+rk.header ("Installation from git result")
 })
 ```
 
 ### Manual Installation
 1.  Download this repository as a `.zip` file.
 2.  In RKWard, go to **Settings -> R Packages -> Install package(s) from local zip file(s)** and select the downloaded file.
-3.  Restart RKWard. The plugin will be available in the `Data` menu.
+3.  **Restart RKWard** (This is required for the new plugin and translations to load).
+4.  The plugin will be available in the `Data` menu.
 
 ## Usage
 
@@ -76,3 +94,7 @@ Both plugins are designed for data transformation. Their primary output is a **n
 ## License
 
 This plugin is licensed under the GPL (>= 3).
+
+## Author
+* Alfonso Cano (alfonso.cano@correo.buap.mx)
+* Assisted by Gemini, a large language model from Google.

@@ -1,0 +1,101 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rk.pivot.reshape 0.01.9\n"
+"Report-Msgid-Bugs-To: https://mail.kde.org/mailman/listinfo/kde-i18n-doc\n"
+"POT-Creation-Date: 2025-01-01 12:00+0000\n"
+"PO-Revision-Date: 2025-01-01 12:00+0000\n"
+"Last-Translator: Alfonso Cano Robles <alfonso.cano@correo.buap.mx>\n"
+"Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: RKWard Plugin Generator\n"
+
+msgid "An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package."
+msgstr "Un plugin de RKWard para reformar datos pivotando a lo largo o a lo ancho usando funciones del paquete 'tidyr'."
+
+msgid "Pivot reshape"
+msgstr "Pivotar y reformar"
+
+msgid "Pivot Longer"
+msgstr "Pivotar a Largo (Pivot Longer)"
+
+msgid "Pivot Data from Wide to Long"
+msgstr "Transformar datos de Ancho a Largo"
+
+msgid "Data frames"
+msgstr "Data frames"
+
+msgid "Data (data.frame)"
+msgstr "Datos (data.frame)"
+
+msgid "Columns to pivot (cols)"
+msgstr "Columnas a pivotar (cols)"
+
+msgid "Name for new key column (names_to)"
+msgstr "Nombre para nueva columna clave (names_to)"
+
+msgid "Name for new value column (values_to)"
+msgstr "Nombre para nueva columna valor (values_to)"
+
+msgid "Handle duplicate column names (names_repair)"
+msgstr "Manejar nombres de columna duplicados (names_repair)"
+
+msgid "Check for unique names (default)"
+msgstr "Verificar nombres únicos (predeterminado)"
+
+msgid "Minimal"
+msgstr "Mínimo"
+
+msgid "Make unique"
+msgstr "Hacer únicos"
+
+msgid "Make universal"
+msgstr "Hacer universales"
+
+msgid "Drop rows with NA values (values_drop_na)"
+msgstr "Eliminar filas con valores NA (values_drop_na)"
+
+msgid "Save longer data to"
+msgstr "Guardar datos largos en"
+
+msgid "Lengthens data by converting multiple columns into two: a 'key' column and a 'value' column."
+msgstr "Alarga los datos convirtiendo múltiples columnas en dos: una columna 'clave' y una columna 'valor'."
+
+msgid "Select a data frame and at least two columns you wish to pivot into a longer format. The result is saved to a new R object."
+msgstr "Seleccione un data frame y al menos dos columnas que desee pivotar a un formato más largo. El resultado se guarda en un nuevo objeto R."
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "<p><b>Columns to pivot (cols):</b> Select two or more columns that will be gathered into the new key/value pair columns.</p><p><b>Name for new key column (names_to):</b> The name for the new column that will contain what were previously column headers.</p><p><b>Name for new value column (values_to):</b> The name for the new column that will contain the values previously spread across the selected pivot columns.</p>"
+msgstr "<p><b>Columnas a pivotar (cols):</b> Seleccione dos o más columnas que se agruparán en las nuevas columnas de par clave/valor.</p><p><b>Nombre para nueva columna clave (names_to):</b> El nombre de la nueva columna que contendrá lo que antes eran encabezados de columna.</p><p><b>Nombre para nueva columna valor (values_to):</b> El nombre de la nueva columna que contendrá los valores previamente dispersos en las columnas seleccionadas.</p>"
+
+msgid "Pivot Wider"
+msgstr "Pivotar a Ancho (Pivot Wider)"
+
+msgid "Pivot Data from Long to Wide"
+msgstr "Transformar datos de Largo a Ancho"
+
+msgid "ID columns (id_cols, optional)"
+msgstr "Columnas ID (id_cols, opcional)"
+
+msgid "Column for new column names (names_from)"
+msgstr "Columna para nuevos nombres (names_from)"
+
+msgid "Column for cell values (values_from)"
+msgstr "Columna para valores de celda (values_from)"
+
+msgid "Save wider data to"
+msgstr "Guardar datos anchos en"
+
+msgid "Widens data by converting a key/value pair of columns into multiple columns."
+msgstr "Ensancha los datos convirtiendo un par de columnas clave/valor en múltiples columnas."
+
+msgid "Select a data frame, the key column to get new column names from, and the value column to fill the cells. The result is saved to a new R object."
+msgstr "Seleccione un data frame, la columna clave de donde obtener los nuevos nombres de columna y la columna de valor para llenar las celdas. El resultado se guarda en un nuevo objeto R."
+
+msgid "<p><b>ID columns:</b> Optional columns that uniquely identify each row. If left blank, all columns not used in `names_from` or `values_from` will be used.</p><p><b>Column for new column names (names_from):</b> Select the column whose values will become the new column headers.</p><p><b>Column for cell values (values_from):</b> Select the column whose values will fill the cells of the new columns.</p>"
+msgstr "<p><b>Columnas ID:</b> Columnas opcionales que identifican únicamente cada fila. Si se deja en blanco, se usarán todas las columnas no utilizadas en `names_from` o `values_from`.</p><p><b>Columna para nuevos nombres (names_from):</b> Seleccione la columna cuyos valores se convertirán en los nuevos encabezados de columna.</p><p><b>Columna para valores de celda (values_from):</b> Seleccione la columna cuyos valores llenarán las celdas de las nuevas columnas.</p>"

@@ -22,7 +22,7 @@ This plugin package provides two powerful data reshaping tools within the RKWard
 -   Optionally remove rows where the new value column contains `NA` (`values_drop_na`).
 -   Save the reshaped, longer data frame to a new R object.
 
-### Pivot Wider (Updated in v0.0.10)
+### Pivot Wider (Updated in v0.01.10)
 -   Select a long-format data frame to widen.
 -   **Multiple Value Columns:** Select **one or more** columns whose values will fill the cells of the new columns (`values_from`).
 -   **Automatic Sequence Generation:** Automatically handles duplicate identifiers (where a single ID has multiple rows) by generating an index/sequence column.

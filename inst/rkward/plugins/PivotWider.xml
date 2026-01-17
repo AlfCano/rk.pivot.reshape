@@ -19,22 +19,40 @@
 		-->
 	</logic>
 	<dialog label="Pivot Data from Long to Wide">
-		<row id="row_vDDIDCCHCM">
+		<row id="row_vDDVDVDIDC">
 			<varselector id="wider_df_source" label="Data frames" />
-			<column id="clm_vDIDCCHCMM">
-				<varslot id="data_slot_wide" label="Data (data.frame)" source="wider_df_source" classes="data.frame" required="true" />
-				<varslot id="id_cols_slot" label="ID columns (id_cols, optional)" source="wider_df_source" multi="true" />
-				<varslot id="names_from_slot" label="Column for new column names (names_from)" source="wider_df_source" required="true" />
-				<varslot id="values_from_slot" label="Column for cell values (values_from)" source="wider_df_source" required="true" />
-				<dropdown id="names_repair_wide" label="Handle duplicate column names (names_repair)">
-					<option label="Check for unique names (default)" value="check_unique" checked="true" />
-					<option label="Minimal" value="minimal" />
-					<option label="Make unique" value="unique" />
-					<option label="Make universal" value="universal" />
-				</dropdown>
-				<saveobject label="Save wider data to" checkable="true" checked="true" initial="data.wide" id="save_wide" />
-				<preview label="Preview" id="prv_Preview" mode="data" />
-			</column>
+			<tabbook>
+				<tab label="Data &amp; Values" id="tab_DataVals">
+					<column id="clm_vDIDCHCMMM">
+						<varslot id="data_slot_wide" label="Data (data.frame)" source="wider_df_source" classes="data.frame" required="true" />
+						<varslot id="id_cols_slot" label="ID columns (id_cols, optional)" source="wider_df_source" multi="true" />
+						<varslot id="values_from_slot" label="Column(s) for cell values (values_from)" source="wider_df_source" required="true" multi="true" />
+						<dropdown id="names_repair_wide" label="Handle duplicate column names">
+							<option label="Check for unique names (default)" value="check_unique" checked="true" />
+							<option label="Minimal" value="minimal" />
+							<option label="Make unique" value="unique" />
+							<option label="Make universal" value="universal" />
+						</dropdown>
+					</column>
+				</tab>
+				<tab label="Column Naming" id="tab_ClmnNmng">
+					<column id="clm_vCASGASGGS">
+						<varslot id="names_from_slot" label="Column for new column names (names_from)" source="wider_df_source" />
+						<frame label="Automatic Sequence Generation" id="frm_AtmtcSqG">
+							<checkbox id="create_seq" label="Generate Sequence/Index Column (Handles duplicates)" value="1" />
+							<input label="Name for new sequence variable" id="seq_name" initial="repet" />
+							<varslot id="seq_group" label="Group sequence by (usually ID)" source="wider_df_source" multi="true" />
+							<checkbox id="seq_include" label="Include index variable in output (values_from)" value="1" />
+						</frame>
+					</column>
+				</tab>
+				<tab label="Output" id="tab_Output">
+					<column id="clm_svbjctlSPP">
+						<saveobject label="Save wider data to" checkable="true" checked="true" initial="data.wide" id="save_wide" />
+						<preview label="Preview" id="prv_Preview" mode="data" />
+					</column>
+				</tab>
+			</tabbook>
 		</row>
 	</dialog>
 </document>

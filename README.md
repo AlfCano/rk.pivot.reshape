@@ -1,6 +1,6 @@
 # RKWard Plugin: Pivot Reshape (`rk.pivot.reshape`)
 
-![Version](https://img.shields.io/badge/Version-0.01.9-blue.svg)
+![Version](https://img.shields.io/badge/Version-0.01.10-blue.svg)
 ![License](https://img.shields.io/badge/License-GPL--3-green.svg)
 [![R Linter](https://github.com/AlfCano/rk.pivot.reshape/actions/workflows/lintr.yml/badge.svg)](https://github.com/AlfCano/rk.pivot.reshape/actions/workflows/lintr.yml)
 
@@ -22,18 +22,21 @@ This plugin package provides two powerful data reshaping tools within the RKWard
 -   Optionally remove rows where the new value column contains `NA` (`values_drop_na`).
 -   Save the reshaped, longer data frame to a new R object.
 
-### Pivot Wider
+### Pivot Wider (Updated in v0.0.10)
 -   Select a long-format data frame to widen.
+-   **Multiple Value Columns:** Select **one or more** columns whose values will fill the cells of the new columns (`values_from`).
+-   **Automatic Sequence Generation:** Automatically handles duplicate identifiers (where a single ID has multiple rows) by generating an index/sequence column.
+    -   *Example:* If a Teacher has 3 classes, it creates a counter (1, 2, 3) to spread the classes into columns `Class_1`, `Class_2`, `Class_3`.
+    -   Option to include this generated index variable in the final output.
 -   Specify the "key" column whose values will become the new column headers (`names_from`).
--   Specify the "value" column whose values will fill the cells of the new columns (`values_from`).
--   Optionally select one or more ID columns (`id_cols`) to keep fixed, ensuring each row remains unique.
+-   Optionally select any ID columns (`id_cols`) to keep fixed.
 -   Save the reshaped, wider data frame to a new R object.
 
 ### Internationalization
 **Internationalization (i18n):** Fully localized interface available in multiple languages.
 
 #### Supported Languages
-As of version 0.01.9, this plugin is available in:
+As of version 0.01.10, this plugin is available in:
 *   🇺🇸 English (Default)
 *   🇪🇸 Spanish (`es`)
 *   🇫🇷 French (`fr`)
@@ -82,14 +85,40 @@ Once installed, the plugins can be found in the **Data -> Pivot reshape** menu i
 ### Using "Pivot Wider"
 1.  Navigate to **Data -> Pivot reshape -> Pivot Wider**.
 2.  Select the input `data.frame` you want to make wider.
-3.  In the "Column for new column names (names_from)" slot, select the single column that contains the keys (i.e., the future column headers).
-4.  In the "Column for cell values (values_from)" slot, select the single column that contains the values.
-5.  Optionally, select any ID columns that should be preserved.
-6.  Specify a name for the output object and click **Submit**.
+3.  **Tab: Data & Values**:
+    *   Select the ID columns (optional) and the **Column(s) for cell values**.
+4.  **Tab: Column Naming**:
+    *   **Standard Method:** Select the column containing the new headers in "Column for new column names".
+    *   **Sequence Method:** If you have duplicates, check **"Generate Sequence/Index Column"**. This will disable the standard name selector and automatically create headers based on a sequence (e.g., `variable_1`, `variable_2`).
+5.  **Tab: Output**:
+    *   Specify a name for the output object.
+    *   Click **Preview** to check the result.
+6.  Click **Submit**.
 
 ## Output
 
 Both plugins are designed for data transformation. Their primary output is a **new data frame object** saved to your R workspace with the name you specified. A confirmation message will appear in the RKWard Output window upon successful completion.
+
+## Dependencies
+
+This plugin relies on the following R packages:
+
+*   `tidyr` (Core logic)
+*   `rkwarddev` (Plugin generation)
+
+### Troubleshooting: Errors installing `devtools` or missing binary dependencies (Windows)
+
+If you encounter errors mentioning "non-zero exit status", "namespace is already loaded", or requirements for compilation (compiling from source) when installing packages, it is likely because the R version bundled with RKWard is older than the current CRAN standard.
+
+**Workaround:**
+Until a new, more recent version of R (current bundled version is 4.3.3) is packaged into the RKWard executable, these issues will persist. To fix this:
+
+1.  Download and install the latest version of R (e.g., 4.5.2 or newer) from [CRAN](https://cloud.r-project.org/).
+2.  Open RKWard and go to the **Settings** (or Preferences) menu.
+3.  Run the **"Installation Checker"**.
+4.  Point RKWard to the newly installed R version.
+
+This "two-step" setup (similar to how RStudio operates) ensures you have access to the latest pre-compiled binaries, avoiding the need for RTools and manual compilation.
 
 ## License
 

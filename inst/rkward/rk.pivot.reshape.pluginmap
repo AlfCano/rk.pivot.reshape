@@ -20,10 +20,10 @@
 		name="rk.pivot.reshape"
 		shortinfo="An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package."
 		longinfo="An RKWard plugin to reshape data by pivoting it longer or wider using functions from the 'tidyr' package."
-		version="0.01.9"
-		releasedate="2026-01-01"
+		version="0.01.10"
+		releasedate="2026-01-17"
 		url="https://github.com/AlfCano/rk.pivot.reshape"
-		license="GPL"
+		license="GPL (&gt;= 3)"
 	>
 		<author
 			given="Alfonso"

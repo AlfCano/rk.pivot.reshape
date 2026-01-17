@@ -3,7 +3,6 @@
 
 function preview(){
 	
-    // Load GUI values
     var data_frame = getValue("data_slot");
     var cols_full_string = getValue("cols_slot");
     var names_to = getValue("names_to");
@@ -22,15 +21,11 @@ function preview(){
     options.push("data = " + data_frame);
     var cols_array = cols_full_string.split(/\s+/).filter(function(n){ return n != "" });
     var col_names = cols_array.map(function(item) { return getColumnName(item); });
-    options.push("cols = c(\"" + col_names.join("\", \"") + "\")");
+    options.push("cols = c('" + col_names.join("', '") + "')");
     options.push("names_to = \"" + names_to + "\"");
     options.push("values_to = \"" + values_to + "\"");
-    if(names_repair != "check_unique"){
-        options.push("names_repair = \"" + names_repair + "\"");
-    }
-    if(drop_na == "1"){
-        options.push("values_drop_na = TRUE");
-    }
+    if(names_repair != "check_unique"){ options.push("names_repair = \"" + names_repair + "\""); }
+    if(drop_na == "1"){ options.push("values_drop_na = TRUE"); }
     echo("preview_data <- tidyr::pivot_longer(" + options.join(", ") + ")\n");
 
 }
@@ -50,7 +45,6 @@ function calculate(is_preview){
 
 	// the R code to be evaluated
 
-    // Load GUI values
     var data_frame = getValue("data_slot");
     var cols_full_string = getValue("cols_slot");
     var names_to = getValue("names_to");
@@ -69,15 +63,14 @@ function calculate(is_preview){
     options.push("data = " + data_frame);
     var cols_array = cols_full_string.split(/\s+/).filter(function(n){ return n != "" });
     var col_names = cols_array.map(function(item) { return getColumnName(item); });
-    options.push("cols = c(\"" + col_names.join("\", \"") + "\")");
+
+    // Safer join
+    options.push("cols = c('" + col_names.join("', '") + "')");
     options.push("names_to = \"" + names_to + "\"");
     options.push("values_to = \"" + values_to + "\"");
-    if(names_repair != "check_unique"){
-        options.push("names_repair = \"" + names_repair + "\"");
-    }
-    if(drop_na == "1"){
-        options.push("values_drop_na = TRUE");
-    }
+
+    if(names_repair != "check_unique"){ options.push("names_repair = \"" + names_repair + "\""); }
+    if(drop_na == "1"){ options.push("values_drop_na = TRUE"); }
     echo("data.long <- tidyr::pivot_longer(" + options.join(", ") + ")\n");
 
 }
@@ -88,8 +81,9 @@ function printout(is_preview){
 
 	// printout the results
 
-    if(getValue("save_long") == "1"){
-        echo("rk.header(\"Pivot Longer results saved to object: " + getValue("save_long.objectname") + "\")\n");
+    if(getValue("save_long.active")) {
+        echo("rk.header(\"Pivot Data (Longer)\")\n");
+        echo("rk.header(\"Result saved in: " + getValue("save_long") + "\", level=3, toc=TRUE)\n");
     }
 
 	if(!is_preview) {

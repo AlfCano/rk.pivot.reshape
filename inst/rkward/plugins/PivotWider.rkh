@@ -17,16 +17,28 @@
 		</section>
 	-->
 	<settings>
+		<caption id="tab_DataVals" />
 		<setting id="data_slot_wide">
 		</setting>
 		<setting id="id_cols_slot">
-		</setting>
-		<setting id="names_from_slot">
 		</setting>
 		<setting id="values_from_slot">
 		</setting>
 		<setting id="names_repair_wide">
 		</setting>
+		<caption id="tab_ClmnNmng" />
+		<setting id="names_from_slot">
+		</setting>
+		<caption id="frm_AtmtcSqG" />
+		<setting id="create_seq">
+		</setting>
+		<setting id="seq_name">
+		</setting>
+		<setting id="seq_group">
+		</setting>
+		<setting id="seq_include">
+		</setting>
+		<caption id="tab_Output" />
 		<setting id="save_wide">
 		</setting>
 	</settings>
